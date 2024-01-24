@@ -19,7 +19,7 @@ namespace ExchangeRateApp.Setup
             services.AddSingleton((_) => config);
             services.AddSingleton<IExchangeRateProvider, ExchangeRateProvider>();
             services.AddSingleton<IApp, App>();
-            services.AddSingleton<IExchangeData, WebExchangeData>();
+            services.AddSingleton<IExchangeData, CNBExchangeData>();
             services.AddCustomHttpClient(config);
 
 

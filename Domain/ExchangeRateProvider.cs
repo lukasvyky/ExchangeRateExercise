@@ -10,14 +10,14 @@ namespace ExchangeRateApp.Domain
         public async Task<IEnumerable<ExchangeRate>> GetExchangeRatesAsync(IEnumerable<Currency> currencies)
         {
             var rawData = await Data.FetchExchangeDataAsync();
-            var exchangeRates = rawData.Where(d => currencies.Any(c => c.Code == d.CurrencyCode))
+            var exchangeRates = rawData.Where(d => currencies.Any(c => c.Code == d.TargetCurrency))
                                        .Select(d =>
                                        {
                                            return new ExchangeRate
                                            {
-                                               SourceCurrency = new Currency(d.CurrencyCode),
+                                               SourceCurrency = new Currency(d.TargetCurrency),
                                                TargetCurrency = new Currency("CZK"),
-                                               Value = d.Rate
+                                               Value = d.Value
                                            };
 
                                        });

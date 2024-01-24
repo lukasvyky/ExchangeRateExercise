@@ -16,7 +16,7 @@ namespace ExchangeRateApp.APIs
             var httpResponse = await HttpClient.GetAsync($"/cnbapi/exrates/daily?date={dateNow}&lang=EN");
             var responseContent = await httpResponse.Content.ReadFromJsonAsync<CNBWrapperDTO>();
 
-            return responseContent.;
+            return responseContent.ConvertToDomainModel();
         }
     }
 }
