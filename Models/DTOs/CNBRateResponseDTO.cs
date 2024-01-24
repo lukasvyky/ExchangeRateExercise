@@ -2,7 +2,7 @@
 
 namespace ExchangeRateApp.Models.DTOs
 {
-    public class ExRateDailyResponseDTO
+    public class CNBRateResponseDTO
     {
         public Int64? Amount { get; set; }
         public string? Country { get; set; }
