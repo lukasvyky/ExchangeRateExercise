@@ -14,7 +14,7 @@ namespace ExchangeRateApp
         {
             var inputCurrencies = GetInputCurrencies();
 
-            var exchangeRates = await Provider.GetExchangeRatesAsync(inputCurrencies);
+            var exchangeRates = await Provider.GetExchangeRatesAsync(inputCurrencies ?? []);
             
             foreach (var exchangeRate in exchangeRates)
             {
@@ -25,7 +25,7 @@ namespace ExchangeRateApp
             Thread.Sleep(3000);
         }
 
-        private IEnumerable<Currency>? GetInputCurrencies()
+        private IEnumerable<Currency>? GetInputCurrencies() // bind this to config?
         {
             var codes = Configuration.GetSection("Currencies").Get<List<string>>();
             return codes?.Select(c => new Currency(c));

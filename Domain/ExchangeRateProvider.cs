@@ -7,20 +7,11 @@ namespace ExchangeRateApp.Domain
     {
         private IExchangeData Data { get; set; } = data;
 
-        public async Task<IEnumerable<ExchangeRate>> GetExchangeRatesAsync(IEnumerable<Currency> currencies)
+        public async Task<IEnumerable<ExchangeRate>> GetExchangeRatesAsync(IEnumerable<Currency> currencies) //readonlycollection
         {
             var rawData = await Data.FetchExchangeDataAsync();
-            var exchangeRates = rawData.Where(d => currencies.Any(c => c.Code == d.TargetCurrency))
-                                       .Select(d =>
-                                       {
-                                           return new ExchangeRate
-                                           {
-                                               SourceCurrency = new Currency(d.TargetCurrency),
-                                               TargetCurrency = new Currency("CZK"),
-                                               Value = d.Value
-                                           };
+            var exchangeRates = rawData.Where(d => currencies.Any(c => c.Code == d.SourceCurrency.Code));
 
-                                       });
             return exchangeRates;
         }
     }

@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using ExchangeRateApp.Models.Domain;
 
 namespace ExchangeRateApp.Models.DTOs
 {
@@ -6,14 +6,14 @@ namespace ExchangeRateApp.Models.DTOs
     {
         public required CNBRateResponseDTO[] Rates { get; init; }
 
-        public IEnumerable<ExchangeRateDTO> ConvertToDomainModel()
+        public IEnumerable<ExchangeRate> ConvertToDomainModel()
         {
-            return Rates.Select(r => new ExchangeRateDTO
+            return Rates.Select(r => new ExchangeRate
             {
-                SourceCurrency = "CZK",
-                TargetCurrency = r.CurrencyCode,
+                SourceCurrency = new Currency(r.CurrencyCode),
+                TargetCurrency = new Currency("CZK"),
                 Value = r.Rate
-            });
+            }) ;
         }
     }
 }

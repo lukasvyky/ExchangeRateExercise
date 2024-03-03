@@ -3,8 +3,6 @@ using ExchangeRateApp.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
-
 namespace ExchangeRateApp.Setup
 {
     public static class AppSetup
@@ -22,13 +20,12 @@ namespace ExchangeRateApp.Setup
             services.AddSingleton<IExchangeData, CNBExchangeData>();
             services.AddCustomHttpClient(config);
 
-
             return services.BuildServiceProvider();
         }
 
         public static void AddCustomHttpClient(this IServiceCollection services, IConfiguration config)
         {
-            var baseUri = "https://" + config.GetSection("cnb").GetChildren().First(e => e.Key.Equals("BaseRoute")).Value;
+            var baseUri = config.GetSection("cnb").GetChildren().First(e => e.Key.Equals("BaseRoute")).Value;
 
             services.AddHttpClient("httpClient",(client) =>
             {

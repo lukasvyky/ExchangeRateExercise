@@ -1,9 +1,9 @@
-﻿using ExchangeRateApp.Models.DTOs;
+﻿using ExchangeRateApp.Models.Domain;
 
 namespace ExchangeRateApp.APIs
 {
     public interface IExchangeData
     {
-        Task<IEnumerable<ExchangeRateDTO>> FetchExchangeDataAsync();
+        Task<IEnumerable<ExchangeRate>?> FetchExchangeDataAsync();
     }
 }
